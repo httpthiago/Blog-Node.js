@@ -2,6 +2,7 @@
   const express = require('express');
   const handlebars = require('express-handlebars');
   const mongoose = require('mongoose');
+  const adminRoute = require('./routes/admin');
   const app = express();
 
 // Configurações
@@ -18,6 +19,8 @@
     // TODO
 
 // Rotas
+  app.use('/admin', adminRoute);
+
 // Outros
   const PORT = 8081;
   app.listen(PORT, () => {
