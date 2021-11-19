@@ -3,6 +3,7 @@
   const handlebars = require('express-handlebars');
   const mongoose = require('mongoose');
   const adminRoute = require('./routes/admin');
+  const path = require('path');
   const app = express();
 
 // Configurações
@@ -17,6 +18,9 @@
   
   // Mongoose
     // TODO
+
+  // Public
+    app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas
   app.use('/admin', adminRoute);

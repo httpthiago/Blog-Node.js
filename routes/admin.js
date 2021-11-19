@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('Página principal do admin');
+  res.render('admin/index');
 })
 
 router.get('/categorias', (req, res) => {
