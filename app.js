@@ -17,7 +17,15 @@
     app.set('view engine', 'handlebars');
   
   // Mongoose
-    // TODO
+    mongoose.Promise = global.Promise;
+    mongoose.connect('mongodb://localhost/blogapp', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    }).then(() => {
+      console.log('Banco conectado com sucesso!');
+    }).catch((err) => {
+      console.log('Erro ao conectar-se ao banco: ' + err);
+    })
 
   // Public
     app.use(express.static(path.join(__dirname, 'public')));
