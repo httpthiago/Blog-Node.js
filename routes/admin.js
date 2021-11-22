@@ -17,16 +17,41 @@ router.get('/categorias/add', (req, res) => {
 })
 
 router.post('/categorias/nova', (req, res) => {
-  const novaCategoria = {
-    nome: req.body.nome,
-    slug: req.body.slug
+
+  //validando formulário
+  var erros = []
+  if (!req.body.nome) {
+    erros.push({ texto: 'Texto inváldo.' })
   }
 
-  new Categoria(novaCategoria).save().then(() => {
-    console.log('Categoria adicionada com sucesso!');
-  }).catch((err) => {
-    console.log('Erro ao conectar-se no banco: ' + err);
-  })
+  if (!req.body.slug) {
+    erros.push({ texto: 'Slug inválido.' })
+  }
+
+  if (req.body.nome < 2) {
+    erros.push({ texto: 'Nome muito pequeno.' })
+  }
+
+  if (erros.length > 0) {
+    res.render('admin/addcategorias', { erros: erros })
+  } else {
+    const novaCategoria = {
+      nome: req.body.nome,
+      slug: req.body.slug
+    }
+
+    new Categoria(novaCategoria).save().then(() => {
+      req.flash('success_msg', 'Categoria criada com sucesso!')
+      res.redirect('/admin/categorias')
+    }).catch((err) => {
+      req.flash('error_msg', 'Erro ao criar categora: ' + err)
+      res.redirect('/admin/categorias')
+    })
+
+  }
+
+
+
 })
 
 router.get('/postagens', (req, res) => {
