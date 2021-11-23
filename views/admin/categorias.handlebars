@@ -1,3 +1,22 @@
-<h1>Todas as categorias</h1>
+<h2>Todas as categorias</h2>
 <hr>
 <a href="/admin/categorias/add"><button class="btn btn-success">Nova categoria</button></a>
+
+{{#each categorias}}
+<div class="card mt-4">
+  <div class="card-body">
+    <h3>{{nome}}</h3>
+    <small>Slug: {{slug}}</small> <br> <br>
+    <a href="/admin/categorias/editar/{{_id}}">
+      <button class="btn btn-primary">Editar</button>
+    </a>
+    <br> 
+    <br>
+    <form action="/admin/categorias/excluir" method="post">
+        <input type="hidden" name="id" value="{{_id}}">
+        <button type="submit" class="btn btn-danger">Excluir</button>
+    </form>
+      
+  </div>
+</div>
+{{/each}}
